@@ -1,0 +1,2 @@
+[todo_server]
+43.205.128.224 ansible_user=ec2-user ansible_ssh_private_key_file="/home/pranav/.ssh/multi-container-todo.pem"

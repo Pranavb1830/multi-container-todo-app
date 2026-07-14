@@ -17,7 +17,7 @@ connectDB();
 app.use("/todos", todoRoutes);
 
 app.get("/", (req, res) => {
-  res.send("API is running...");
+  res.send("API is running... CI/CD works!");
 });
 
 const PORT = process.env.PORT || 3000;
