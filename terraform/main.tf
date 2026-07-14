@@ -75,17 +75,21 @@ resource "local_file" "ansible_inventory" {
   })
 }
 
-resource "null_resource" "ansible" {
+resource "time_sleep" "wait_for_ec2" {
 
-  depends_on = [aws_instance.todo_server]
+  depends_on = [
+    aws_instance.todo_server
+  ]
 
   create_duration = "30s"
+}
+
+resource "null_resource" "ansible" {
 
   depends_on = [
     time_sleep.wait_for_ec2,
     local_file.ansible_inventory
   ]
-  
 
   provisioner "local-exec" {
     command = "cd ../ansible && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory playbook.yml"
