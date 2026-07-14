@@ -1,0 +1,24 @@
+---
+- name: Install Git
+  dnf:
+    name: git
+    state: present
+
+- name: Clone GitHub repository
+  become_user: "{{ app_user }}"
+  git:
+    repo: "{{ github_repo }}"
+    dest: "{{ app_directory }}"
+    version: "{{ app_branch }}"
+    update: yes
+
+- name: Create application environment file
+  template:
+    src: app.env.j2
+    dest: "{{ app_directory }}/api/.env"
+    mode: '0644'
+
+- name: Start application using Docker Compose
+  command:
+    cmd: docker compose up -d
+    chdir: "{{ app_directory }}"

@@ -1,0 +1,6 @@
+aws_region    = "ap-south-1"
+instance_type = "t2.micro"
+key_name      = "multi-container-todo"
+project_name  = "multi-container-todo-app"
+private_key_path = "/home/pranav/.ssh/multi-container-todo.pem"
+inventory_path = "../ansible/inventory"

@@ -16,6 +16,10 @@ npm-debug.log*
 *.tfstate.*
 crash.log
 
+# AWS credentials
+*.pem
+*.csv
+
 # VS Code
 .vscode/
 

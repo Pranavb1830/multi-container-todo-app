@@ -1,0 +1,11 @@
+github_repo: "https://github.com/Pranavb1830/multi-container-todo-app.git"
+
+app_directory: "/home/ec2-user/multi-container-todo-app"
+
+app_user: "ec2-user"
+
+app_branch: "main"
+
+mongo_uri: "mongodb://mongo:27017/todo-app"
+
+app_port: "3000"
