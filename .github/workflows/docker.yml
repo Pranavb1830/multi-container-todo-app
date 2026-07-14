@@ -28,3 +28,21 @@ jobs:
           context: ./api
           push: true
           tags: pranavthegoat/todo-api:latest
+  
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+
+          script: |
+            cd ~/multi-container-todo-app
+            git pull
+            docker compose pull
+            docker compose up -d
