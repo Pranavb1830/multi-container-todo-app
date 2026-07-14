@@ -49,7 +49,7 @@ resource "aws_instance" "todo_server" {
   instance_type          = var.instance_type
   key_name               = var.key_name
   
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   
   vpc_security_group_ids = [aws_security_group.todo_sg.id]
 
@@ -58,12 +58,23 @@ resource "aws_instance" "todo_server" {
   }
 }
 
+resource "aws_eip" "todo_eip" {
+
+  domain = "vpc"
+
+  instance = aws_instance.todo_server.id
+
+  depends_on = [
+    aws_instance.todo_server
+  ]
+}
+
 resource "local_file" "ansible_inventory" {
   filename = "${path.module}/${var.inventory_path}"
 
   content = templatefile("${path.module}/../ansible/inventory.tpl", {
-    public_ip = aws_instance.todo_server.public_ip
-    private_key_path = var.private_key_path
+      public_ip = aws_eip.todo_eip.public_ip
+      private_key_path = var.private_key_path
   })
 }
 

@@ -5,7 +5,7 @@ output "instance_id" {
 
 output "public_ip" {
   description = "Public IP Address"
-  value       = aws_instance.todo_server.public_ip
+  value       = aws_eip.todo_eip.public_ip
 }
 
 output "public_dns" {
