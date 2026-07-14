@@ -74,3 +74,20 @@ resource "local_file" "ansible_inventory" {
     private_key_path = var.private_key_path
   })
 }
+
+resource "null_resource" "ansible" {
+
+  depends_on = [aws_instance.todo_server]
+
+  create_duration = "30s"
+
+  depends_on = [
+    time_sleep.wait_for_ec2,
+    local_file.ansible_inventory
+  ]
+  
+
+  provisioner "local-exec" {
+    command = "cd ../ansible && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory playbook.yml"
+  }
+}
