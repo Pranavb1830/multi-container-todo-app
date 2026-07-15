@@ -1,154 +1,204 @@
 # Multi-Container Todo Application
 
-A production-style multi-container Todo REST API built with **Node.js**, **Express**, **MongoDB**, and **Docker Compose**. This project demonstrates containerization, persistent storage, and forms the foundation for Infrastructure as Code (Terraform), Configuration Management (Ansible), and CI/CD using GitHub Actions.
+A production-style Todo REST API demonstrating containerization, infrastructure automation, and CI/CD using Docker, Terraform, Ansible, GitHub Actions, AWS EC2, and Nginx.
 
 ---
 
 ## Features
 
-- Create Todo
-- Get All Todos
-- Get Todo by ID
-- Update Todo
-- Delete Todo
-- MongoDB data persistence
-- Dockerized Node.js API
-- Multi-container setup using Docker Compose
+- RESTful Todo API
+- MongoDB persistence
+- Dockerized services
+- Multi-container deployment using Docker Compose
+- Infrastructure as Code using Terraform
+- Server configuration using Ansible
+- GitHub Actions CI/CD
+- Docker Hub image registry
+- Nginx Reverse Proxy
+- Automatic deployment to AWS EC2
 
 ---
 
 ## Tech Stack
 
+### Backend
+
 - Node.js
 - Express.js
+
+### Database
+
 - MongoDB
-- Mongoose
+
+### Containers
+
 - Docker
 - Docker Compose
 
-### Upcoming
+### Infrastructure
 
-- Terraform (AWS Infrastructure)
-- Ansible (Server Provisioning)
-- GitHub Actions (CI/CD)
-- Nginx Reverse Proxy
+- AWS EC2
+- Terraform
+
+### Configuration Management
+
+- Ansible
+
+### CI/CD
+
+- GitHub Actions
+- Docker Hub
+
+### Reverse Proxy
+
+- Nginx
 
 ---
 
 ## Project Structure
 
-```
-multi-container-todo-app/
-│
-├── api/
-│   ├── config/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── Dockerfile
-│   ├── server.js
-│   ├── package.json
-│   └── .env.example
-│
-├── terraform/
-│   └── main.tf
-│
-├── docker-compose.yml
-├── README.md
-└── .gitignore
+```text
+api/
+ansible/
+terraform/
+nginx/
+.github/
+docker-compose.yml
+README.md
 ```
 
 ---
 
-## API Endpoints
+## System Architecture
 
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| GET | `/todos` | Get all todos |
-| POST | `/todos` | Create a new todo |
-| GET | `/todos/:id` | Get a todo by ID |
-| PUT | `/todos/:id` | Update a todo |
-| DELETE | `/todos/:id` | Delete a todo |
+See:
+
+```
+docs/architecture.md
+```
 
 ---
 
-## Environment Variables
-
-Create a `.env` file inside the `api` directory.
+## Deployment Pipeline
 
 ```
-PORT=3000
-MONGO_URI=mongodb://localhost:27017/todos
+Developer
+
+↓
+
+git push
+
+↓
+
+GitHub Actions
+
+↓
+
+Docker Build
+
+↓
+
+Docker Hub
+
+↓
+
+SSH into EC2
+
+↓
+
+Docker Compose
+
+↓
+
+Application Updated
 ```
 
-> When using Docker Compose, the MongoDB connection string is automatically overridden to connect to the MongoDB container.
+---
+
+## Infrastructure Provisioning
+
+Infrastructure is provisioned using Terraform.
+
+Resources created:
+
+- EC2 Instance
+- Security Group
+- Ansible Inventory
+- Automatic Ansible Execution
+
+Deployment:
+
+```bash
+terraform apply
+```
+
+---
+
+## Configuration Management
+
+After Terraform provisions the EC2 instance, Ansible automatically:
+
+- Installs Docker
+- Installs Docker Compose
+- Clones the GitHub repository
+- Creates the application `.env`
+- Starts Docker Compose
 
 ---
 
 ## Running Locally
 
-### Install dependencies
-
 ```bash
-cd api
-npm install
-```
+git clone https://github.com/Pranavb1830/multi-container-todo-app
 
-### Start the API
-
-```bash
-npm run dev
+docker compose up
 ```
 
 ---
 
-## Running with Docker
+## CI/CD
 
-From the project root:
+Every push to the `main` branch automatically:
 
-```bash
-docker compose up --build
-```
-
-The API will be available at:
-
-```
-http://localhost:3000
-```
-
----
-
-## Stopping Containers
-
-```bash
-docker compose down
-```
-
----
-
-## Data Persistence
-
-MongoDB data is stored using a Docker named volume.
-
-Stopping and restarting containers does not delete Todo data.
+- Builds a Docker image
+- Pushes the image to Docker Hub
+- Connects to EC2 via SSH
+- Pulls the latest image
+- Restarts the application
 
 ---
 
 ## Future Improvements
 
-- Deploy on AWS EC2
-- Infrastructure with Terraform
-- Automated server configuration using Ansible
-- CI/CD using GitHub Actions
-- Nginx Reverse Proxy
-- Custom Domain with HTTPS
+- HTTPS using Let's Encrypt
+- Custom Domain
+- Elastic IP
+- Load Balancer
+- Kubernetes Deployment
+- Monitoring using Prometheus & Grafana
+
+---
+
+## Screenshots
+
+### Architecture
+
+docs/architecture.md
+
+### GitHub Actions
+
+screenshots/github-actions.png
+
+### Running Containers
+
+screenshots/docker-ps.png
+
+### Application
+
+screenshots/running-app.png
 
 ---
 
 ## Author
 
 **Pranav B**
-
-Computer Engineering Student
-
-Mumbai, India
